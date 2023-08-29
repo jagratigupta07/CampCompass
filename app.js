@@ -58,7 +58,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: secret
-});
+}});
 store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e)
 })
