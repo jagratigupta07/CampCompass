@@ -26,9 +26,9 @@ const MongoStore = require('connect-mongo');
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+
 const dbURL= process.env.DB_URL||'mongodb://127.0.0.1:27017/yelp-camp'
 
-// mongoose.connect(dbURL)
  mongoose.connect(dbURL);
 
 const db = mongoose.connection;
@@ -58,7 +58,8 @@ const store = MongoStore.create({
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: secret
-}});
+    }
+});
 store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e)
 })
@@ -119,6 +120,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
 })
